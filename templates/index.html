@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Explainer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #0d1117; /* very dark background */
+            color: #c9ff8f; /* soft green text */
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #161b22; /* slightly lighter black */
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #0f1115;
+            color: #39ff14; /* neon green header */
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #7cff99;
+            font-size: 1.1em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            background: #0d1117;
+            color: #c9ff8f;
+            resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #39ff14;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #0d1117;
+            color: #c9ff8f;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #39ff14;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+        }
+
+        .btn {
+            background: #161b22;
+            color: #39ff14;
+            padding: 15px 40px;
+            border: 2px solid #39ff14;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .explanation-box {
+            margin-top: 30px;
+            padding: 25px;
+            background: #0f1115;
+            border-radius: 8px;
+            border-left: 5px solid #39ff14;
+        }
+
+        .explanation-box h2 {
+            color: #39ff14;
+            margin-bottom: 15px;
+        }
+
+        .explanation-box p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #c9ff8f;
+        }
+
+        .explanation-box h1,
+        .explanation-box h2,
+        .explanation-box h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #39ff14;
+        }
+
+        .explanation-box ul,
+        .explanation-box ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .explanation-box li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .explanation-box code {
+            background: #0d1117;
+            color: #39ff14;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+        }
+
+        .explanation-box pre {
+            background: #0d1117;
+            color: #39ff14;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .explanation-box pre code {
+            background: none;
+            padding: 0;
+            font-size: 0.95em;
+        }
+
+        .explanation-box blockquote {
+            border-left: 4px solid #39ff14;
+            padding-left: 15px;
+            margin: 15px 0;
+            color: #7cff99;
+            font-style: italic;
+        }
+
+        .explanation-box table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .explanation-box table th,
+        .explanation-box table td {
+            border: 1px solid #30363d;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .explanation-box table th {
+            background: #0d1117;
+            color: #39ff14;
+        }
+
+        .explanation-box strong {
+            color: #39ff14;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Code Explainer</h1>
+            <p>Paste your code and get instant explanations</p>
+        </div>
+
+        <div class="content">
+            <form method="POST" action="/explain">
+                <div class="form-group">
+                    <label for="code">Your Code:</label>
+                    <textarea name="code" id="code" rows="12" placeholder="Paste your code here..." required>{{ code if code else '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="level">Explanation Level:</label>
+                    <select name="level" id="level">
+                        <option value="beginner" {% if level == 'beginner' %}selected{% endif %}>Beginner - Detailed</option>
+                        <option value="advanced" {% if level == 'advanced' %}selected{% endif %}>Advanced - Concise</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn">✨ Explain Code</button>
+            </form>
+
+            {% if explanation %}
+            <div class="explanation-box">
+                <h2>📖 Explanation</h2>
+                <div>
+                    {{ explanation|safe }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
