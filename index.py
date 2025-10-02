@@ -11,7 +11,10 @@ genai.configure(api_key=API_KEY)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        return f"Error loading template: {str(e)}", 500
 
 @app.route('/explain', methods=['POST'])
 def explain():
