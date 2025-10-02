@@ -3,7 +3,9 @@ import google.generativeai as genai
 import markdown
 import os
 
-app = Flask(__name__)
+# Fix template path for Vercel
+template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'templates')
+app = Flask(__name__, template_folder=template_dir)
 
 # Configure Gemini - Use environment variable for security
 API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyBoRSlgKuQ-mBQiEQWiK0mmpXG9pn17Afc')
@@ -44,6 +46,3 @@ def explain():
         explanation=explanation_html, 
         level=level
     )
-
-# Vercel needs this
-handler = app
